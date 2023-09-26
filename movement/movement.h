@@ -50,7 +50,8 @@ typedef union {
         uint8_t to_interval : 2;            // an inactivity interval for asking the active face to resign.
         bool to_always : 1;                 // if true, always time out from the active face to face 0. otherwise only faces that time out will resign (the default).
         uint8_t le_interval : 3;            // 0 to disable low energy mode, or an inactivity interval for going into low energy mode.
-        uint8_t led_duration : 2;           // how many seconds to shine the LED for (x2), or 0 to disable it.
+        uint8_t led_duration : 2;           // how many seconds to shine the LED for (x2), or 0 to disable it. This is the configured value
+        uint8_t led_duration_active : 2;    // the active value for how many seconds to shine the LED for (x2), or 0 to disable it.
         uint8_t led_red_color : 4;          // for general purpose illumination, the red LED value (0-15)
         uint8_t led_green_color : 4;        // for general purpose illumination, the green LED value (0-15)
         uint8_t time_zone : 6;              // an integer representing an index in the time zone table.
@@ -96,7 +97,7 @@ typedef union {
 // movement_reserved_t is a placeholder for future use of the BKUP[3] register.
 typedef union {
     struct {
-        uint32_t reserved : 32;
+        uint32_t reserved : 31;
     } bit;
     uint32_t reg;
 } movement_reserved_t;

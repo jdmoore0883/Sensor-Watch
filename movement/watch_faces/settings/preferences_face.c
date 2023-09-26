@@ -161,6 +161,7 @@ bool preferences_face_loop(movement_event_t event, movement_settings_t *settings
             case 4:
                 if (settings->bit.led_duration) {
                     sprintf(buf, " %1d SeC", settings->bit.led_duration * 2 - 1);
+                    settings->bit.led_duration_active=settings->bit.led_duration;
                     watch_display_string(buf, 4);
                 } else {
                     watch_display_string("no LEd", 4);

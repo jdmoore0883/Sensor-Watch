@@ -128,6 +128,34 @@ bool simple_clock_face_loop(movement_event_t event, movement_settings_t *setting
             // handle alarm indicator
             if (state->alarm_enabled != settings->bit.alarm_enabled) _update_alarm_indicator(settings->bit.alarm_enabled, state);
             break;
+        case EVENT_LIGHT_BUTTON_DOWN:
+            movement_illuminate_led();
+            break;
+        case EVENT_LIGHT_LONG_PRESS:
+            if (settings->bit.led_duration_active == settings->bit.led_duration){
+                settings->bit.led_duration_active = 0;
+                watch_set_led_off();
+                printf((char *)settings->bit.led_duration_active);
+            } else {
+                settings->bit.led_duration_active = settings->bit.led_duration;
+                printf((char *)settings->bit.led_duration_active);
+                movement_illuminate_led();
+            }
+
+            //This seems to crash the Simulator
+            //movement_play_signal();
+
+            //This causes 2 beeps, but then no beeps on face switches
+            //movement_play_tune();
+
+            //Same with this
+            //#ifdef SIGNAL_TUNE_DEFAULT
+            //movement_play_signal();
+            //#else
+            //movement_play_tune();
+            //#endif
+
+            break;
         case EVENT_ALARM_LONG_PRESS:
             state->signal_enabled = !state->signal_enabled;
             if (state->signal_enabled) watch_set_indicator(WATCH_INDICATOR_BELL);
